@@ -1,0 +1,45 @@
+import type { Metadata, Viewport } from "next";
+import { Geist } from "next/font/google";
+import { profile } from "@/data/profile";
+import "./globals.css";
+
+// Font files are downloaded at build time and served with the site (no runtime Google requests).
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: `${profile.name} | ${profile.title}`,
+  description: profile.tagline,
+  openGraph: {
+    title: `${profile.name} | ${profile.title}`,
+    description: profile.tagline,
+    type: "website",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#121212" },
+  ],
+};
+
+// Runs before first paint: apply the saved theme, else the system preference.
+const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`;
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="min-h-screen bg-bg font-sans text-fg">{children}</body>
+    </html>
+  );
+}

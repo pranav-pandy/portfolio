@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   Color tokens. To change the color scheme, edit only these values.
+   Light mode is the default; dark mode overrides below.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --bg: #ffffff;
+  --surface: #f8f6f3;
+  --fg: #1f1f1f;
+  --muted: #57534e;
+  --line: #e7e2dc;
+  --accent: #990000; /* USC cardinal: links, headings accents */
+  --accent-hover: #7a0000;
+  --btn: #990000; /* primary button background */
+  --btn-hover: #7a0000;
+  --btn-fg: #ffffff;
+  --gold: #ffcc00; /* decoration only (underlines, dividers) — never text on white */
+  --tag-bg: #f6eaea;
+  --tag-fg: #7a0000;
+  color-scheme: light;
+}
+
+/* Dark tokens, applied when the toggle picks dark... */
+:root[data-theme="dark"] {
+  --bg: #121212;
+  --surface: #1c1b1a;
+  --fg: #ededed;
+  --muted: #a8a29e;
+  --line: #2e2b29;
+  --accent: #f2777a; /* lighter cardinal: cardinal itself is too dark to read on black */
+  --accent-hover: #f7a1a3;
+  --btn: #990000;
+  --btn-hover: #b31b1b;
+  --btn-fg: #ffffff;
+  --gold: #ffcc00;
+  --tag-bg: #2a1c1c;
+  --tag-fg: #f5a3a5;
+  color-scheme: dark;
+}
+
+/* ...or when JavaScript is off and the system prefers dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #121212;
+    --surface: #1c1b1a;
+    --fg: #ededed;
+    --muted: #a8a29e;
+    --line: #2e2b29;
+    --accent: #f2777a;
+    --accent-hover: #f7a1a3;
+    --btn: #990000;
+    --btn-hover: #b31b1b;
+    --btn-fg: #ffffff;
+    --gold: #ffcc00;
+    --tag-bg: #2a1c1c;
+    --tag-fg: #f5a3a5;
+    color-scheme: dark;
+  }
+}
+
+/* Expose tokens as Tailwind classes: bg-bg, text-fg, text-muted, border-line, text-accent, bg-btn, ... */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-btn: var(--btn);
+  --color-btn-hover: var(--btn-hover);
+  --color-btn-fg: var(--btn-fg);
+  --color-gold: var(--gold);
+  --color-tag-bg: var(--tag-bg);
+  --color-tag-fg: var(--tag-fg);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* `dark:` Tailwind variant follows the data-theme attribute set by the toggle. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
