@@ -12,6 +12,7 @@ export type Experience = {
   type?: string; // e.g. "Volunteer"
   location: string;
   dates?: string; // omit to hide dates
+  logo?: string; // square image in /public, e.g. "/logos/tcs.jpg"
   description?: string;
   tech: string[];
   bullets: string[];
@@ -68,6 +69,7 @@ export const profile = {
   experience: [
     {
       company: "Tata Consultancy Services (TCS)",
+      logo: "/logos/tcs.jpg",
       role: "Software Development Engineer",
       type: "Full-time",
       location: "Chennai, India",
@@ -82,6 +84,7 @@ export const profile = {
     },
     {
       company: "Santech America",
+      logo: "/logos/santech.jpg",
       role: "Software Development Volunteer",
       location: "Katy, TX",
       description:

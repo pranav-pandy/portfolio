@@ -43,3 +43,5 @@ next-env.d.ts
 # personal resume drafts (not part of the site)
 /Job_Resume/
 /Picture/
+/Logo/
+/IMG_*.PNG

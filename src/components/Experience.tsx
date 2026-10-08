@@ -9,16 +9,32 @@ export default function Experience() {
         {profile.experience.map((job) => (
           <li key={job.company}>
             <article className="rounded-xl border border-line bg-surface p-6 sm:p-8">
-              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                <h3 className="text-xl font-semibold text-fg">{job.company}</h3>
-                <p className="text-sm text-muted">{job.location}</p>
-              </div>
-              <div className="mt-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                <p className="font-medium text-accent">
-                  {job.role}
-                  {job.type && <span className="font-normal text-muted"> · {job.type}</span>}
-                </p>
-                {job.dates && <p className="text-sm text-muted">{job.dates}</p>}
+              <div className="flex items-start gap-4">
+                {job.logo && (
+                  // White tile keeps white-background logos clean in dark mode.
+                  // Decorative: the company name sits right next to it.
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={job.logo}
+                    alt=""
+                    width={80}
+                    height={56}
+                    className="h-11 w-16 shrink-0 rounded-lg border border-line bg-white object-contain sm:h-14 sm:w-20"
+                  />
+                )}
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                    <h3 className="text-xl font-semibold text-fg">{job.company}</h3>
+                    <p className="text-sm text-muted">{job.location}</p>
+                  </div>
+                  <div className="mt-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                    <p className="font-medium text-accent">
+                      {job.role}
+                      {job.type && <span className="font-normal text-muted"> · {job.type}</span>}
+                    </p>
+                    {job.dates && <p className="text-sm text-muted">{job.dates}</p>}
+                  </div>
+                </div>
               </div>
 
               {job.description && (
