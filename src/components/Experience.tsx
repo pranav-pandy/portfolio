@@ -1,6 +1,7 @@
 import { profile } from "@/data/profile";
 import Section from "./Section";
 import Tag from "./Tag";
+import LogoTile from "./LogoTile";
 
 export default function Experience() {
   return (
@@ -10,18 +11,7 @@ export default function Experience() {
           <li key={job.company}>
             <article className="rounded-xl border border-line bg-surface p-6 sm:p-8">
               <div className="flex items-start gap-4">
-                {job.logo && (
-                  // White tile keeps white-background logos clean in dark mode.
-                  // Decorative: the company name sits right next to it.
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={job.logo}
-                    alt=""
-                    width={80}
-                    height={56}
-                    className="h-11 w-16 shrink-0 rounded-lg border border-line bg-white object-contain sm:h-14 sm:w-20"
-                  />
-                )}
+                {job.logo && <LogoTile src={job.logo} />}
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                     <h3 className="text-xl font-semibold text-fg">{job.company}</h3>

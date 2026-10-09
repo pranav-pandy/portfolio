@@ -39,6 +39,7 @@ export type Education = {
   gpa?: string;
   note?: string;
   courses?: string[];
+  logo?: string; // image in /public, e.g. "/logos/usc.jpg"
 };
 
 export const profile = {
@@ -242,6 +243,7 @@ export const profile = {
   education: [
     {
       school: "University of Southern California",
+      logo: "/logos/usc.jpg",
       degree: "M.S. Computer Science",
       location: "Los Angeles, CA",
       dates: "August 2024 – May 2026",
@@ -257,6 +259,7 @@ export const profile = {
     },
     {
       school: "Panimalar Engineering College",
+      logo: "/logos/panimalar.jpg",
       degree: "B.E. Computer Science and Engineering",
       location: "Chennai, India",
       dates: "August 2019 – April 2023",

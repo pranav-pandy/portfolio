@@ -1,5 +1,6 @@
 import { profile } from "@/data/profile";
 import Section from "./Section";
+import LogoTile from "./LogoTile";
 
 export default function Education() {
   return (
@@ -7,8 +8,13 @@ export default function Education() {
       <ul className="grid gap-6 md:grid-cols-2">
         {profile.education.map((ed) => (
           <li key={ed.school} className="rounded-xl border border-line bg-surface p-6">
-            <h3 className="text-lg font-semibold text-fg">{ed.school}</h3>
-            <p className="mt-1 font-medium text-accent">{ed.degree}</p>
+            <div className="flex items-start gap-4">
+              {ed.logo && <LogoTile src={ed.logo} />}
+              <div className="min-w-0">
+                <h3 className="text-lg font-semibold text-fg">{ed.school}</h3>
+                <p className="mt-1 font-medium text-accent">{ed.degree}</p>
+              </div>
+            </div>
             <p className="mt-2 text-sm text-muted">
               {ed.location} · {ed.dates}
               {ed.note && ` · ${ed.note}`}
