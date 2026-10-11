@@ -27,6 +27,8 @@ export type Project = {
   liveUrl?: string; // playable / live demo link
   flagship?: boolean; // shown as a full-width card
   label?: string; // small badge, e.g. "Coursework"
+  image?: { src: string; alt: string }; // 16:9 image in /public/projects
+  ml?: boolean; // also list on the ML Projects page
 };
 
 export type SkillGroup = { name: string; items: string[] };
@@ -115,6 +117,7 @@ export const profile = {
   projects: [
     {
       title: "Stock Trading Web & iOS App",
+      image: { src: "/projects/stock-trading.jpg", alt: "Close-up of a stock price chart on a screen" },
       flagship: true,
       summary:
         "Full-stack stock trading app with one REST backend shared by a web client and a native iOS app.",
@@ -135,6 +138,7 @@ export const profile = {
     },
     {
       title: "RoomSync",
+      image: { src: "/projects/roomsync.jpg", alt: "Bright apartment living room with a sofa" },
       summary: "Roommate matching and housing search platform.",
       details: [
         "Attribute-based recommender that ranks roommate compatibility by vector similarity across 10+ lifestyle attributes.",
@@ -145,6 +149,8 @@ export const profile = {
     },
     {
       title: "Semantic Movie Recommender",
+      image: { src: "/projects/movie-recommender.jpg", alt: "Neon-lit cinema at night" },
+      ml: true,
       summary:
         "Content-based movie recommendations using semantic search over movie descriptions.",
       details: [
@@ -156,6 +162,8 @@ export const profile = {
     },
     {
       title: "Serverless YouTube Video Summarizer",
+      image: { src: "/projects/youtube-summarizer.jpg", alt: "Video camera viewfinder showing a scene" },
+      ml: true,
       summary: "Serverless REST endpoint that summarizes long YouTube videos.",
       details: [
         "Runs on AWS Lambda with no dedicated server, executing on demand.",
@@ -165,6 +173,8 @@ export const profile = {
     },
     {
       title: "AI-Powered Stock Analyzer",
+      image: { src: "/projects/stock-analyzer.jpg", alt: "Laptop showing analytics charts" },
+      ml: true,
       summary: "Conversational assistant for stock analysis.",
       details: [
         "Built with LangChain and Gemini.",
@@ -174,15 +184,20 @@ export const profile = {
     },
     {
       title: "Tuberculosis Detection from Chest X-Rays",
+      image: { src: "/projects/tuberculosis.jpg", alt: "Three sample chest X-ray images from the training data" },
+      ml: true,
       summary: "CNN that classifies tuberculosis from chest X-ray images.",
       details: [
         "Trained a CNN classifier with about 90% accuracy.",
+        "Compared a custom CNN with VGG16 and LeNet architectures.",
         "Deployed in a Django web app.",
       ],
-      tags: ["Deep Learning (CNN)", "Django"],
+      tags: ["Deep Learning (CNN)", "TensorFlow", "Django"],
+      githubUrl: "https://github.com/pranav-pandy/Tuberculosis-Classification",
     },
     {
       title: "Search Engine & Information Retrieval Toolkit",
+      image: { src: "/projects/search-engine.jpg", alt: "Rows of books in a large library" },
       label: "Coursework",
       summary: "Tools for crawling, indexing, and comparing search engine results.",
       details: [
@@ -194,6 +209,7 @@ export const profile = {
     },
     {
       title: "Broken Run",
+      image: { src: "/projects/broken-run.jpg", alt: "Hands holding a game controller" },
       label: "Team project · Coursework",
       summary: "Unity game built by a student team for USC's CSCI 526 course, playable in the browser.",
       details: [
@@ -203,6 +219,44 @@ export const profile = {
       tags: ["Unity", "C#", "WebGL"],
       githubUrl: "https://github.com/CSCI-526/main-broken-souls",
       liveUrl: "https://csci-526.github.io/main-broken-souls/Gold-Milestone/",
+    },
+  ] satisfies Project[],
+
+  // ML Projects page (/ml-projects) and its folder card in the Projects section.
+  mlCollection: {
+    title: "ML Projects",
+    summary: "Image classification, time-series classification, semantic search, and LLM apps.",
+    intro:
+      "Machine learning and AI projects from coursework and personal work. Each card links to its code where the repo is public.",
+  },
+
+  // Shown only on the ML Projects page, before the projects flagged `ml: true` above.
+  mlOnlyProjects: [
+    {
+      title: "Waste Classification with Transfer Learning",
+      label: "Coursework",
+      summary: "Image classifier that sorts photos into 9 types of waste using pretrained CNNs.",
+      details: [
+        "Compared VGG16, ResNet50, ResNet101, and EfficientNetB0 as frozen feature extractors with a trained classification head.",
+        "Used data augmentation (flips, rotation, crop, zoom, contrast), early stopping, L2 regularization, batch normalization, and dropout.",
+        "EfficientNetB0 performed best: 85% test accuracy and 0.86 macro F1 on 476 held-out images.",
+      ],
+      tags: ["Python", "TensorFlow", "Keras", "OpenCV", "Transfer learning"],
+      githubUrl: "https://github.com/pranav-pandy/Image-Classification---Transfer-Learning",
+      image: { src: "/projects/waste-classification.jpg", alt: "Row of recycling bins against a wall" },
+    },
+    {
+      title: "Human Activity Recognition from Sensor Data",
+      label: "Coursework",
+      summary: "Classifies 7 human activities from wireless sensor time-series data.",
+      details: [
+        "Extracted time-domain features (min, max, mean, median, standard deviation, quartiles) from 6 sensor signals per instance in the UCI AReM dataset.",
+        "Built binary (bending vs. other) and multiclass models: logistic regression with p-value and recursive feature elimination, L1-regularized logistic regression, and Naive Bayes.",
+        "Cross-validated the number of time-series segments and evaluated with ROC/AUC and confusion matrices.",
+      ],
+      tags: ["Python", "Scikit-learn", "Pandas", "statsmodels"],
+      githubUrl: "https://github.com/pranav-pandy/Human-Activity-Recognition---Time-Series-Data",
+      image: { src: "/projects/activity-recognition.jpg", alt: "People running and cycling on a tree-lined road" },
     },
   ] satisfies Project[],
 
@@ -274,3 +328,9 @@ export const profile = {
     },
   ] satisfies Education[],
 };
+
+// Everything on the ML Projects page, in display order.
+export const mlProjects: Project[] = [
+  ...profile.mlOnlyProjects,
+  ...profile.projects.filter((p) => p.ml),
+];

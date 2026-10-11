@@ -1,15 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 const NAV = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#education", label: "Education" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#education", label: "Education" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Header({ name }: { name: string }) {
@@ -32,9 +33,9 @@ export default function Header({ name }: { name: string }) {
         Skip to content
       </a>
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-        <a href="#top" className="font-semibold tracking-tight text-fg hover:text-accent">
+        <Link href="/#top" className="font-semibold tracking-tight text-fg hover:text-accent">
           {name}
-        </a>
+        </Link>
 
         <div className="flex items-center gap-1">
           <nav aria-label="Main" className="hidden md:block">

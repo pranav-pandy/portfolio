@@ -102,6 +102,31 @@ Unity, C#, WebGL
 - Playable: https://csci-526.github.io/main-broken-souls/Gold-Milestone/
 - Rule: it is a TEAM project. Do not claim the whole game; describe my own role only once I state it. Do not quote commit counts.
 
+### ML Projects page (/ml-projects)
+A "folder" card at the end of Projects opens a collection page listing ML work: the two projects below, plus Tuberculosis, Semantic Movie Recommender, YouTube Summarizer, and AI Stock Analyzer.
+
+### 9. Waste Classification with Transfer Learning (coursework, USC DSCI 552 final project)
+Python, TensorFlow/Keras, OpenCV
+- 9 waste categories; compared VGG16, ResNet50, ResNet101, EfficientNetB0 as frozen feature extractors with a trained head
+- Data augmentation, early stopping, L2 regularization, batch normalization, dropout
+- EfficientNetB0 best: 85% test accuracy, 0.86 macro F1, 476 test images (from the notebook's saved output)
+- Repo: https://github.com/pranav-pandy/Image-Classification---Transfer-Learning
+
+### 10. Human Activity Recognition from Sensor Data (coursework, USC DSCI 552)
+Python, Scikit-learn, Pandas, statsmodels
+- UCI AReM dataset, 7 activities, 6 sensor signals per instance; time-domain feature extraction
+- Logistic regression (p-values, RFE), L1-regularized logistic regression, Naive Bayes; cross-validated segment count; ROC/AUC
+- Rule: do NOT quote an accuracy number (test set is tiny and the notebook's "max_test_accuracy" is ambiguous)
+- Repo: https://github.com/pranav-pandy/Human-Activity-Recognition---Time-Series-Data
+
+### Tuberculosis (addition)
+- Compared a custom CNN with VGG16 and LeNet (verified in code/M1–M3). Repo: https://github.com/pranav-pandy/Tuberculosis-Classification
+
+### Project images
+- 16:9 JPEGs in /public/projects. Photos are CC0 from StockSnap (sources listed in README). Tuberculosis image is built from the notebook's own sample X-rays.
+- Stock photos are illustrations, not screenshots: alt text must describe the photo, never claim it shows the app.
+- Do not use logos of products/brands (Unity, YouTube, Apple, consoles) as project images.
+
 GitHub repo links for each project: not yet provided. Show no GitHub button on a card until I verify and add its link. Never use placeholder URLs.
 
 ## Skills

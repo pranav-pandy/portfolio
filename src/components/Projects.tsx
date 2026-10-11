@@ -1,74 +1,38 @@
-import { profile, type Project } from "@/data/profile";
+import Link from "next/link";
+import { profile, mlProjects } from "@/data/profile";
 import Section from "./Section";
-import Tag from "./Tag";
+import ProjectCard from "./ProjectCard";
 
-function ProjectCard({ project }: { project: Project }) {
+// "Folder" card that opens the ML Projects page, with a 2x2 preview of its images.
+function MlFolderCard() {
+  const previews = mlProjects.filter((p) => p.image).slice(0, 4);
   return (
-    <article
-      className={`flex h-full flex-col rounded-xl border bg-surface p-6 ${
-        project.flagship ? "border-accent/40 sm:p-8" : "border-line"
-      }`}
+    <Link
+      href="/ml-projects"
+      className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface transition-colors hover:border-accent"
     >
-      <div className="flex flex-wrap items-center gap-2">
-        {project.flagship && (
-          <span className="rounded-full bg-btn px-2.5 py-0.5 text-xs font-medium text-btn-fg">
-            Featured
-          </span>
-        )}
-        {project.label && (
-          <span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-muted">
-            {project.label}
-          </span>
-        )}
-      </div>
-      <h3 className={`mt-2 font-semibold text-fg ${project.flagship ? "text-2xl" : "text-lg"}`}>
-        {project.title}
-      </h3>
-      <p className="mt-2 text-muted">{project.summary}</p>
-
-      <ul className="mt-4 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-fg marker:text-accent">
-        {project.details.map((d) => (
-          <li key={d}>{d}</li>
+      <div aria-hidden="true" className="grid aspect-video grid-cols-2 gap-0.5 border-b border-line bg-line">
+        {previews.map((p) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={p.title} src={p.image!.src} alt="" loading="lazy" className="h-full w-full object-cover" />
         ))}
-      </ul>
-
-      {/* mt-auto keeps tags and links aligned at the bottom of each card */}
-      <div className="mt-auto pt-5">
-        <ul aria-label="Technologies" className="flex flex-wrap gap-2">
-          {project.tags.map((t) => (
-            <Tag key={t}>{t}</Tag>
-          ))}
-        </ul>
-        {(project.liveUrl || project.githubUrl) && (
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover hover:underline"
-              >
-                Play in browser
-                <span className="sr-only"> ({project.title}, opens in a new tab)</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-            )}
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover hover:underline"
-              >
-                View code on GitHub
-                <span className="sr-only"> for {project.title} (opens in a new tab)</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-            )}
-          </div>
-        )}
       </div>
-    </article>
+      <div className="flex flex-1 flex-col p-6">
+        <div className="mb-2 flex items-center gap-2 text-muted">
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+            <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.6l2 2.2h8.4A1.5 1.5 0 0 1 21 8.7v9.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z" />
+          </svg>
+          <span className="text-xs font-medium uppercase tracking-wider">Collection</span>
+        </div>
+        <h3 className="text-lg font-semibold text-fg">{profile.mlCollection.title}</h3>
+        <p className="mt-2 text-muted">
+          {mlProjects.length} projects. {profile.mlCollection.summary}
+        </p>
+        <span className="mt-auto pt-5 text-sm font-medium text-accent group-hover:underline">
+          Open collection <span aria-hidden="true">→</span>
+        </span>
+      </div>
+    </Link>
   );
 }
 
@@ -81,6 +45,9 @@ export default function Projects() {
             <ProjectCard project={p} />
           </li>
         ))}
+        <li>
+          <MlFolderCard />
+        </li>
       </ul>
     </Section>
   );
