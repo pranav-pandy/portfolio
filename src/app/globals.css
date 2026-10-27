@@ -1,84 +1,191 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
-   Color tokens. To change the color scheme, edit only these values.
-   Light mode is the default; dark mode overrides below.
+   Design tokens. To change the color scheme, edit only these values.
+   Light mode is the default ("paper"); dark mode overrides below ("ink").
+   Every text/background pair here meets WCAG AA (4.5:1) or better.
    ───────────────────────────────────────────────────────────── */
 :root {
-  --bg: #ffffff;
-  --surface: #f8f6f3;
-  --fg: #1f1f1f;
-  --muted: #57534e;
-  --line: #e7e2dc;
-  --accent: #990000; /* USC cardinal: links, headings accents */
-  --accent-hover: #7a0000;
-  --btn: #990000; /* primary button background */
+  --bg: #fbfaf7; /* warm paper */
+  --surface: #f3f0ea; /* image wells, the one featured panel */
+  --fg: #1c1b19; /* charcoal, not pure black */
+  --muted: #5f5a53;
+  --line: #e4ded4; /* hairline rules */
+  --line-strong: #cfc7ba;
+  --accent: #990000; /* USC cardinal: links, small emphasis */
+  --accent-hover: #6e0000;
+  --btn: #990000;
   --btn-hover: #7a0000;
   --btn-fg: #ffffff;
-  --gold: #ffcc00; /* decoration only (underlines, dividers) — never text on white */
-  --tag-bg: #f6eaea;
-  --tag-fg: #7a0000;
+  --gold: #ffcc00; /* decoration only: underlines, selection, markers */
+  --gold-ink: #8a6a00; /* gold you can read on paper (for tiny labels) */
   color-scheme: light;
 }
 
-/* Dark tokens, applied when the toggle picks dark... */
+/* Dark ("ink") tokens: applied when the toggle picks dark... */
 :root[data-theme="dark"] {
-  --bg: #121212;
-  --surface: #1c1b1a;
-  --fg: #ededed;
-  --muted: #a8a29e;
-  --line: #2e2b29;
-  --accent: #f2777a; /* lighter cardinal: cardinal itself is too dark to read on black */
-  --accent-hover: #f7a1a3;
-  --btn: #990000;
-  --btn-hover: #b31b1b;
+  --bg: #131211;
+  --surface: #1c1a18;
+  --fg: #ebe7e0;
+  --muted: #a39d94;
+  --line: #2c2926;
+  --line-strong: #3d3935;
+  --accent: #ef8486; /* cardinal lifted for contrast on near-black */
+  --accent-hover: #f6aeaf;
+  --btn: #a31f1f;
+  --btn-hover: #b83232;
   --btn-fg: #ffffff;
-  --gold: #ffcc00;
-  --tag-bg: #2a1c1c;
-  --tag-fg: #f5a3a5;
+  --gold: #e8b923; /* slightly muted gold so it doesn't buzz on black */
+  --gold-ink: #e8b923;
   color-scheme: dark;
 }
 
 /* ...or when JavaScript is off and the system prefers dark. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg: #121212;
-    --surface: #1c1b1a;
-    --fg: #ededed;
-    --muted: #a8a29e;
-    --line: #2e2b29;
-    --accent: #f2777a;
-    --accent-hover: #f7a1a3;
-    --btn: #990000;
-    --btn-hover: #b31b1b;
+    --bg: #131211;
+    --surface: #1c1a18;
+    --fg: #ebe7e0;
+    --muted: #a39d94;
+    --line: #2c2926;
+    --line-strong: #3d3935;
+    --accent: #ef8486;
+    --accent-hover: #f6aeaf;
+    --btn: #a31f1f;
+    --btn-hover: #b83232;
     --btn-fg: #ffffff;
-    --gold: #ffcc00;
-    --tag-bg: #2a1c1c;
-    --tag-fg: #f5a3a5;
+    --gold: #e8b923;
+    --gold-ink: #e8b923;
     color-scheme: dark;
   }
 }
 
-/* Expose tokens as Tailwind classes: bg-bg, text-fg, text-muted, border-line, text-accent, bg-btn, ... */
+/* Tokens as Tailwind classes: bg-bg, text-fg, text-muted, border-line, text-accent, ... */
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-btn: var(--btn);
   --color-btn-hover: var(--btn-hover);
   --color-btn-fg: var(--btn-fg);
   --color-gold: var(--gold);
-  --color-tag-bg: var(--tag-bg);
-  --color-tag-fg: var(--tag-fg);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-gold-ink: var(--gold-ink);
+
+  /* Newsreader for headings (editorial serif), IBM Plex Sans for reading, Plex Mono for metadata only. */
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
 
-html {
-  scroll-behavior: smooth;
+/* `dark:` Tailwind variant follows the data-theme attribute set by the toggle. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header height + breathing room for anchor jumps. */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "kern", "liga";
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: #1c1b19;
+  }
+
+  /* Visible keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* Theme switch: fade colors only while switching (class added by the toggle),
+   so the first paint never animates. */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    fill 220ms ease !important;
+}
+
+@layer components {
+  /* Inline text link: cardinal text, gold underline that thickens on hover. */
+  .link {
+    color: var(--accent);
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in srgb, var(--gold) 70%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    transition:
+      text-decoration-thickness 150ms ease,
+      text-decoration-color 150ms ease,
+      color 150ms ease;
+  }
+  .link:hover {
+    color: var(--accent-hover);
+    text-decoration-color: var(--gold);
+    text-decoration-thickness: 2px;
+  }
+
+  /* Small mono metadata: dates, locations, stacks. */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--muted);
+  }
+}
+
+/* Restrained entrance: sections settle in as they scroll into view.
+   Pure CSS (scroll-driven), so content is never hidden when unsupported or with JS off. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 30%;
+    }
+    @keyframes reveal {
+      from {
+        opacity: 0.001;
+        translate: 0 14px;
+      }
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -86,18 +193,3 @@ html {
     scroll-behavior: auto;
   }
 }
-
-body {
-  background: var(--bg);
-  color: var(--fg);
-}
-
-/* Visible keyboard focus everywhere. */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-/* `dark:` Tailwind variant follows the data-theme attribute set by the toggle. */
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));

@@ -58,8 +58,14 @@ If you use a different filename, also update `resume` in `profile.ts`.
 1. Put a square image in `public/` (e.g. `public/profile.jpg`, about 400×400 px, under 200 KB).
 2. In `profile.ts`, set `photo: "/profile.jpg"`.
 
+### Design system
+- **Type:** Newsreader (headings), IBM Plex Sans (reading), IBM Plex Mono (dates, stacks, small labels only). Loaded in `src/app/layout.tsx`.
+- **Layout:** each section uses `Section` (title in a left rail on desktop, hairline between sections). Only the featured project uses a tinted panel.
+- **Links:** use the `link` class (cardinal text, gold underline). External links use `ExternalLink`, which adds the ↗ and screen-reader text.
+- **Motion:** sections fade in as they scroll into view using CSS only (`.reveal`). It's off when reduced motion is on, and content is never hidden if it's unsupported.
+
 ### Change colors
-Edit the color values at the top of `src/app/globals.css`: one block for light mode and one for dark mode.
+Edit the color values at the top of `src/app/globals.css`: one block for light mode ("paper") and one for dark mode ("ink"), repeated once for visitors without JavaScript.
 Keep text colors at a contrast ratio of at least 4.5:1 against the background (https://webaim.org/resources/contrastchecker/).
 
 ## Deploying
