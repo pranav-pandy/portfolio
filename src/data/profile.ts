@@ -58,6 +58,7 @@ export const profile = {
     { label: "Based in", value: "Los Angeles, CA" },
     { label: "Degree", value: "M.S. Computer Science, USC, 2026" },
     { label: "Previously", value: "Software Development Engineer, TCS" },
+    { label: "Open to", value: "Software engineering roles" },
   ],
 
   // Live site address, used for SEO (canonical URL, sitemap, structured data).

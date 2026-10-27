@@ -57,8 +57,8 @@ export default function Header({ name }: { name: string }) {
         Skip to content
       </a>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="group font-serif text-[1.15rem] leading-none text-fg" aria-label={`${name}, home`}>
-          {first} <span className="text-muted transition-colors duration-150 group-hover:text-fg max-[359px]:hidden">{lastParts.join(" ")}</span>
+        <Link href="/" className="group whitespace-nowrap font-serif text-[1.15rem] leading-none text-fg" aria-label={`${name}, home`}>
+          {first} <span className="text-muted transition-colors duration-150 group-hover:text-fg max-[359px]:hidden md:max-lg:hidden">{lastParts.join(" ")}</span>
         </Link>
 
         <div className="flex items-center gap-2">

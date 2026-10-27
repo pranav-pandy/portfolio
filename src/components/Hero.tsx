@@ -57,7 +57,7 @@ export default function Hero() {
         )}
       </div>
 
-      <dl className="mt-14 grid gap-x-10 gap-y-5 border-t border-line pt-6 sm:grid-cols-3">
+      <dl className="mt-14 grid gap-x-10 gap-y-5 border-t border-line pt-6 sm:grid-cols-2 lg:grid-cols-4">
         {profile.facts.map((f) => (
           <div key={f.label}>
             <dt className="meta">{f.label}</dt>

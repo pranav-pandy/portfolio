@@ -8,7 +8,6 @@ const newsreader = Newsreader({
   variable: "--font-newsreader",
   subsets: ["latin"],
   axes: ["opsz"],
-  style: ["normal", "italic"],
 });
 const plexSans = IBM_Plex_Sans({
   variable: "--font-plex-sans",
@@ -18,7 +17,7 @@ const plexSans = IBM_Plex_Sans({
 const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
