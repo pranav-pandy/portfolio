@@ -51,6 +51,20 @@ export const profile = {
   tagline:
     "Early-career software engineer with an M.S. in Computer Science from USC, financial-software experience at TCS, and full-stack projects built end to end.",
 
+  // Hero: one plain introduction, then a few quick facts shown as a small list.
+  intro:
+    "I'm a software engineer in Los Angeles with an M.S. in Computer Science from USC. I worked full-time at TCS on a core banking application, and I build full-stack, mobile, and machine learning projects end to end.",
+  facts: [
+    { label: "Based in", value: "Los Angeles, CA" },
+    { label: "Degree", value: "M.S. Computer Science, USC, 2026" },
+    { label: "Previously", value: "Software Development Engineer, TCS" },
+    { label: "Open to", value: "Software engineering roles" },
+  ],
+
+  // Live site address, used for SEO (canonical URL, sitemap, structured data).
+  siteUrl: "https://pranav-pandy.vercel.app",
+  sourceUrl: "https://github.com/pranav-pandy/portfolio",
+
   // Put the image in /public (e.g. /public/profile.jpg) and set "/profile.jpg".
   // Leave as null to hide the photo.
   photo: "/profile.jpg" as string | null,
@@ -64,10 +78,12 @@ export const profile = {
   resume: "/Pranav_Mohanapandian_Resume_SDE.pdf",
 
   about: [
-    "I'm a software engineer in Los Angeles with an M.S. in Computer Science from USC (May 2026).",
-    "At Tata Consultancy Services, I worked full-time on a core banking application: COBOL transaction modules, Java and JavaScript screens, and production defect fixes. As a volunteer developer at Santech America, I built mobile and backend features for an industrial field-operations app using React Native, NestJS, and PostgreSQL.",
-    "My projects cover full-stack and backend work end to end, from REST APIs and PostgreSQL to web and native iOS clients, along with cloud, mobile, and AI/ML work. I'm looking for Software Engineer roles.",
+    "At Tata Consultancy Services I worked on a core banking application: COBOL transaction modules, Java and JavaScript screens, and production defect fixes that reduced system errors by 23%.",
+    "As a volunteer developer at Santech America, I built React Native and NestJS features for AiQMate, an industrial field-operations app, including a rewritten task workflow with supervisor reviews.",
+    "My projects include a stock trading platform with one backend shared by a web client and a native iOS app, semantic search over 35,000+ movie descriptions, and image classifiers built with TensorFlow. I'm looking for software engineering roles.",
   ],
+
+  contactNote: "I'm looking for software engineering roles. Email is the best way to reach me.",
 
   experience: [
     {
@@ -227,7 +243,7 @@ export const profile = {
     title: "ML Projects",
     summary: "Image classification, time-series classification, semantic search, and LLM apps.",
     intro:
-      "Machine learning and AI projects from coursework and personal work. Each card links to its code where the repo is public.",
+      "Machine learning and AI projects from coursework and personal work. Each entry links to its code where the repo is public.",
   },
 
   // Shown only on the ML Projects page, before the projects flagged `ml: true` above.

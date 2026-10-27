@@ -1,35 +1,29 @@
 import { profile } from "@/data/profile";
 import Section from "./Section";
+import ExternalLink from "./ExternalLink";
 
 // "https://www.github.com/x" -> "github.com/x"
 const display = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "");
 
 export default function Contact() {
-  const links = [
-    { label: "Email", value: profile.email, href: `mailto:${profile.email}`, newTab: false },
-    { label: "LinkedIn", value: display(profile.linkedin), href: profile.linkedin, newTab: true },
-    { label: "GitHub", value: display(profile.github), href: profile.github, newTab: true },
-  ];
-
   return (
     <Section id="contact" title="Contact">
-      <p className="max-w-2xl text-lg text-muted">
-        I&apos;m open to Software Engineer roles. Email is the best way to reach me.
+      <p className="max-w-[34rem] text-[1.05rem] leading-relaxed text-muted">{profile.contactNote}</p>
+      <p className="mt-5">
+        <a
+          href={`mailto:${profile.email}`}
+          className="link break-all font-serif text-[1.9rem] leading-tight sm:text-[2.4rem]"
+        >
+          {profile.email}
+        </a>
       </p>
-      <ul className="mt-6 space-y-3">
-        {links.map((l) => (
-          <li key={l.label} className="flex flex-col sm:flex-row sm:gap-4">
-            <span className="w-24 shrink-0 font-semibold text-fg">{l.label}</span>
-            <a
-              href={l.href}
-              className="break-all text-accent hover:text-accent-hover hover:underline"
-              {...(l.newTab && { target: "_blank", rel: "noopener noreferrer" })}
-            >
-              {l.value}
-              {l.newTab && <span className="sr-only"> (opens in a new tab)</span>}
-            </a>
-          </li>
-        ))}
+      <ul className="meta mt-8 flex flex-wrap gap-x-8 gap-y-2 !text-[0.875rem]">
+        <li>
+          <ExternalLink href={profile.linkedin}>{display(profile.linkedin)}</ExternalLink>
+        </li>
+        <li>
+          <ExternalLink href={profile.github}>{display(profile.github)}</ExternalLink>
+        </li>
       </ul>
     </Section>
   );

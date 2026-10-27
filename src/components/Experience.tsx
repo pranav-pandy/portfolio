@@ -1,47 +1,47 @@
 import { profile } from "@/data/profile";
 import Section from "./Section";
-import Tag from "./Tag";
 import LogoTile from "./LogoTile";
+import StackLine from "./StackLine";
 
 export default function Experience() {
   return (
     <Section id="experience" title="Experience">
-      <ol className="space-y-6">
+      <ol className="divide-y divide-line">
         {profile.experience.map((job) => (
-          <li key={job.company}>
-            <article className="rounded-xl border border-line bg-surface p-6 sm:p-8">
-              <div className="flex items-start gap-4">
+          <li key={job.company} className="py-9 first:pt-0 last:pb-0 sm:grid sm:grid-cols-[9.5rem_minmax(0,1fr)] sm:gap-8">
+            {/* When and where: a quiet mono column on wide screens, a single line on phones. */}
+            <div className="meta mb-3 flex flex-wrap gap-x-3 sm:mb-0 sm:block sm:pt-1.5">
+              <p>{job.dates ?? job.type ?? "Volunteer"}</p>
+              <p className="sm:mt-1">{job.location}</p>
+            </div>
+
+            <article>
+              <header className="flex items-start gap-4">
                 {job.logo && <LogoTile src={job.logo} />}
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                    <h3 className="text-xl font-semibold text-fg">{job.company}</h3>
-                    <p className="text-sm text-muted">{job.location}</p>
-                  </div>
-                  <div className="mt-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                    <p className="font-medium text-accent">
-                      {job.role}
-                      {job.type && <span className="font-normal text-muted"> · {job.type}</span>}
-                    </p>
-                    {job.dates && <p className="text-sm text-muted">{job.dates}</p>}
-                  </div>
+                <div className="min-w-0">
+                  <h3 className="text-[1.45rem] leading-snug text-fg">{job.role}</h3>
+                  <p className="mt-0.5 text-[0.95rem] text-muted">
+                    <span className="font-medium text-fg">{job.company}</span>
+                    {job.type && job.dates && <> · {job.type}</>}
+                  </p>
                 </div>
-              </div>
+              </header>
 
               {job.description && (
-                <p className="mt-4 text-sm italic text-muted">{job.description}</p>
+                <p className="mt-4 max-w-[40rem] text-[0.95rem] leading-relaxed text-muted">
+                  {job.description}
+                </p>
               )}
 
-              <ul className="mt-4 list-disc space-y-2 pl-5 leading-relaxed text-fg marker:text-accent">
+              <ul className="mt-4 max-w-[40rem] space-y-2.5 text-[0.98rem] leading-relaxed text-fg/90">
                 {job.bullets.map((b) => (
-                  <li key={b}>{b}</li>
+                  <li key={b} className="relative pl-5 before:absolute before:left-0 before:text-accent before:content-['–']">
+                    {b}
+                  </li>
                 ))}
               </ul>
 
-              <ul aria-label="Technologies" className="mt-5 flex flex-wrap gap-2">
-                {job.tech.map((t) => (
-                  <Tag key={t}>{t}</Tag>
-                ))}
-              </ul>
+              <StackLine items={job.tech} className="mt-5" />
             </article>
           </li>
         ))}

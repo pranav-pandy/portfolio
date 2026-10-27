@@ -13,7 +13,7 @@ A clean, fast, professional one-page portfolio (with optional project detail pag
 - Keep all content in one data file (e.g. `src/data/profile.ts`) so it is easy to edit
 
 ## Sections
-1. Hero: name, one-line positioning, buttons for Resume (SDE only; opens the PDF in a new tab for viewing), GitHub, LinkedIn, Email. Optional profile photo (none yet).
+1. Hero: name, a plain introduction, Resume button (SDE only; opens the PDF in a new tab), GitHub, LinkedIn, Email links, quick facts, and profile photo.
 2. About: short paragraph (see "Positioning")
 3. Experience: TCS, then Santech America (volunteer)
 4. Projects: cards with title, one-line summary, tech tags, GitHub link
@@ -142,6 +142,13 @@ GitHub repo links for each project: not yet provided. Show no GitHub button on a
   - Courses: Analysis of Algorithms, Web Technologies, Machine Learning, Applied NLP, Information Retrieval
 - Panimalar Engineering College, Chennai — B.E. Computer Science and Engineering, GPA 4.0/4.0, August 2019 – April 2023
   - Courses: Deep Learning, Probability and Statistics, Database Systems, Distributed Systems, Cloud Computing
+
+## Design direction (Oct 2026 redesign)
+- Editorial and restrained: warm paper / ink backgrounds, hairline rules, left-rail section titles, minimal radius (3–4px).
+- Newsreader headings, IBM Plex Sans body, IBM Plex Mono for metadata only.
+- No pill/badge clouds: tech stacks are one mono line; skills are comma lists.
+- Cardinal for links and small emphasis; gold only for underlines, selection, and tiny labels.
+- Avoid: gradients, glow, glassmorphism, floating icons, decorative code, bouncing or parallax animation.
 
 ## Writing style
 - Plain, specific, confident. No hype words ("passionate", "cutting-edge", "rockstar", "thrilled").

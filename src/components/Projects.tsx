@@ -1,54 +1,55 @@
 import Link from "next/link";
 import { profile, mlProjects } from "@/data/profile";
 import Section from "./Section";
-import ProjectCard from "./ProjectCard";
+import { FeaturedProject, ProjectRow } from "./ProjectEntry";
 
-// "Folder" card that opens the ML Projects page, with a 2x2 preview of its images.
-function MlFolderCard() {
-  const previews = mlProjects.filter((p) => p.image).slice(0, 4);
+// Link to the ML Projects page, shown as the last entry in the index.
+function MlCollectionLink() {
+  const thumbs = mlProjects.filter((p) => p.image).slice(0, 3);
   return (
     <Link
       href="/ml-projects"
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface transition-colors hover:border-accent"
+      className="group mt-2 flex items-center gap-6 rounded-[4px] border border-line-strong px-5 py-5 transition-colors duration-150 hover:border-accent sm:px-6"
     >
-      <div aria-hidden="true" className="grid aspect-video grid-cols-2 gap-0.5 border-b border-line bg-line">
-        {previews.map((p) => (
+      <div aria-hidden="true" className="hidden shrink-0 -space-x-6 sm:flex">
+        {thumbs.map((p, i) => (
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={p.title} src={p.image!.src} alt="" loading="lazy" className="h-full w-full object-cover" />
+          <img
+            key={p.title}
+            src={p.image!.src}
+            alt=""
+            loading="lazy"
+            className="h-14 w-20 rounded-[3px] border-2 border-bg object-cover transition-transform duration-200 group-hover:translate-x-[calc(var(--i)*4px)]"
+            style={{ ["--i" as string]: i }}
+          />
         ))}
       </div>
-      <div className="flex flex-1 flex-col p-6">
-        <div className="mb-2 flex items-center gap-2 text-muted">
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
-            <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.6l2 2.2h8.4A1.5 1.5 0 0 1 21 8.7v9.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z" />
-          </svg>
-          <span className="text-xs font-medium uppercase tracking-wider">Collection</span>
-        </div>
-        <h3 className="text-lg font-semibold text-fg">{profile.mlCollection.title}</h3>
-        <p className="mt-2 text-muted">
-          {mlProjects.length} projects. {profile.mlCollection.summary}
-        </p>
-        <span className="mt-auto pt-5 text-sm font-medium text-accent group-hover:underline">
-          Open collection <span aria-hidden="true">→</span>
-        </span>
+      <div className="min-w-0 flex-1">
+        <p className="meta">Collection · {mlProjects.length} projects</p>
+        <p className="mt-0.5 font-serif text-[1.35rem] leading-snug text-fg">{profile.mlCollection.title}</p>
+        <p className="mt-1 text-[0.95rem] text-muted">{profile.mlCollection.summary}</p>
       </div>
+      <span aria-hidden="true" className="text-xl text-accent transition-transform duration-150 group-hover:translate-x-1">
+        →
+      </span>
     </Link>
   );
 }
 
 export default function Projects() {
+  const featured = profile.projects.find((p) => p.flagship);
+  const rest = profile.projects.filter((p) => !p.flagship);
   return (
-    <Section id="projects" title="Projects">
-      <ul className="grid gap-6 md:grid-cols-2">
-        {profile.projects.map((p) => (
-          <li key={p.title} className={p.flagship ? "md:col-span-2" : undefined}>
-            <ProjectCard project={p} />
+    <Section id="projects" title="Projects" kicker="Web, mobile, and ML work. Coursework is labeled.">
+      {featured && <FeaturedProject project={featured} />}
+      <ul className="mt-4 divide-y divide-line">
+        {rest.map((p) => (
+          <li key={p.title}>
+            <ProjectRow project={p} />
           </li>
         ))}
-        <li>
-          <MlFolderCard />
-        </li>
       </ul>
+      <MlCollectionLink />
     </Section>
   );
 }
